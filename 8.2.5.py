@@ -50,5 +50,7 @@ print("250日平均の最大値: %2.5f"%resid_max,"250日平均の最小値: %2.
 print("250日平均の95%の信頼区間: ",(t.interval(alpha=0.95, df=250, loc=0, scale=v)))
 
 
+pd.Series.rolling(arma_res.resid.iloc[1:],250).mean().plot(figsize=(6,4),color='hotpink')
+plt.ylabel('$\hat{z_t}$')
 
 

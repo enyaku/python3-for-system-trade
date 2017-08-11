@@ -51,4 +51,19 @@ print("250日平均の95%の信頼区間: ",(t.interval(alpha=0.95, df=250, loc=
 
 
 
+from scipy.stats import chi2
+resid=arma_res.resid.iloc[1:]
+m=resid.mean()
+v=resid.std()
+resid_max=pd.Series.rolling(arma_res.resid,window=250).std().max()
+resid_min=pd.Series.rolling(arma_res.resid,window=250).std().min()
+print("平均:                 %2.5f"%m,"        標準偏差：    %2.5f"%v)
+print("250日標準偏差の最大値:%2.5f"%resid_max,"250日標準偏差の最小値:%2.5f"%resid_min)
+
+cint1,cint2=chi2.interval(alpha=(0.95), df=249)
+
+print("250日標準偏差の95pctの信頼区間:%2.4f"%(np.sqrt(cint1/249)*v),)
+print("<= \sigma <=%2.4f"%(np.sqrt(cint2/249)*v))
+
+
 
